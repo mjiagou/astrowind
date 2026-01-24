@@ -1,22 +1,22 @@
 site:
-  name: AstroWind
-  site: 'https://astrowind.vercel.app'
+  name: 极酷家
+  site: 'https://jikujia.com'
   base: '/'
   trailingSlash: false
 
-  googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
+  googleSiteVerificationId: xxx
 
 # Default SEO metadata
 metadata:
   title:
-    default: AstroWind
-    template: '%s — AstroWind'
-  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+    default: 极酷家
+    template: '%s — 极酷家'
+  description: "专注于 QQ NT 美化、LiteLoader 插件、机器人搭建及社交黑话科普。"
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: AstroWind
+    site_name: 极酷家
     images:
       - url: '~/assets/images/default.png'
         width: 1200
@@ -28,7 +28,7 @@ metadata:
     cardType: summary_large_image
 
 i18n:
-  language: en
+  language: zh
   textDirection: ltr
 
 apps:

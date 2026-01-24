@@ -1,0 +1,96 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import blacklistData from '../data/blacklist.json';
+
+const metadata = {
+  title: 'QQ 黑名单查询 - 极酷家',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="py-16 md:py-20 bg-gray-50 dark:bg-slate-900 min-h-screen">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">🛡️ 安全中心</h1>
+      <p class="text-gray-600 dark:text-slate-400 mb-8">输入 QQ 号查询是否存在已知风险记录，数据由社区投递核实。</p>
+
+      <div class="relative max-w-md mx-auto mb-12">
+        <input 
+          type="text" 
+          id="qqInput" 
+          placeholder="请输入 5-12 位 QQ 号..." 
+          class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-blue-500 outline-none transition"
+        />
+        <button 
+          id="searchBtn"
+          class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition shadow-lg"
+        >
+          立即检索
+        </button>
+      </div>
+
+      <!-- 结果展示区域 -->
+      <div id="resultCard" class="hidden text-left bg-white dark:bg-slate-800 p-6 rounded-xl border border-gray-200 dark:border-slate-700 shadow-xl">
+        <div class="flex justify-between items-start mb-4">
+          <h2 id="resNickname" class="text-2xl font-bold text-gray-800 dark:text-white"></h2>
+          <span id="resLevel" class="px-3 py-1 rounded-full text-sm font-bold"></span>
+        </div>
+        <div class="space-y-2">
+          <p><span class="font-bold">QQ 号：</span> <span id="resQQ"></span></p>
+          <p><span class="font-bold">违规类型：</span> <span id="resType"></span></p>
+          <p><span class="font-bold">详情描述：</span> <span id="resReason" class="text-gray-600 dark:text-slate-400"></span></p>
+          <p><span class="font-bold">录入日期：</span> <span id="resDate"></span></p>
+        </div>
+      </div>
+
+      <div id="noResult" class="hidden p-8 bg-green-100 text-green-800 rounded-xl font-bold">
+        ✅ 该 QQ 号暂无不良记录，交易/社交前请仍需保持警惕。
+      </div>
+      
+      <div id="errorTip" class="hidden p-4 text-red-500 font-medium">
+        请输入有效的 QQ 号码。
+      </div>
+    </div>
+  </section>
+
+  <script define:vars={{ blacklistData }}>
+    const input = document.getElementById('qqInput');
+    const btn = document.getElementById('searchBtn');
+    const card = document.getElementById('resultCard');
+    const noRes = document.getElementById('noResult');
+    const errorTip = document.getElementById('errorTip');
+
+    btn.addEventListener('click', () => {
+      const val = input.value.trim();
+      
+      // 重置状态
+      card.classList.add('hidden');
+      noRes.classList.add('hidden');
+      errorTip.classList.add('hidden');
+
+      if (!val || val.length < 5) {
+        errorTip.classList.remove('hidden');
+        return;
+      }
+
+      // 查找数据
+      const record = blacklistData.find(item => item.qq === val);
+
+      if (record) {
+        // 填充内容
+        document.getElementById('resNickname').textContent = record.nickname;
+        document.getElementById('resQQ').textContent = record.qq;
+        document.getElementById('resType').textContent = record.type;
+        document.getElementById('resReason').textContent = record.reason;
+        document.getElementById('resDate').textContent = record.date;
+        
+        const levelTag = document.getElementById('resLevel');
+        levelTag.textContent = record.level;
+        levelTag.className = record.level === '极高风险' ? 'bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-bold' : 'bg-yellow-100 text-yellow-600 px-3 py-1 rounded-full text-sm font-bold';
+
+        card.classList.remove('hidden');
+      } else {
+        noRes.classList.remove('hidden');
+      }
+    });
+  </script>
+</Layout>

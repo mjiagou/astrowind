@@ -1,0 +1,89 @@
+<script>
+  const attachCopyButtons = () => {
+    // 1. 选择所有的 pre 标签
+    const codeBlocks = Array.from(document.querySelectorAll('pre'));
+
+    codeBlocks.forEach((pre) => {
+      // 检查是否已经处理过，防止重复添加
+      // 我们检查父级是否已经是我们创建的 wrapper
+      const parent = pre.parentElement;
+      if (parent?.classList.contains('code-wrapper')) return;
+
+      // 2. 创建包裹容器 (Wrapper)
+      // 使用 wrapper 包裹 pre，以便绝对定位按钮
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-wrapper relative group mb-4'; 
+
+      // 3. 将 pre 移动到 wrapper 中
+      if (pre.parentNode) {
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+      }
+
+      // 4. 创建复制按钮
+      const button = document.createElement('button');
+      // 核心修改：z-50 确保层级最高，border 增加可见度
+      button.className =
+        'copy-btn absolute top-2 right-2 z-50 p-2 rounded-md transition-all duration-200 border border-gray-500/30 bg-gray-800/80 hover:bg-blue-600 text-gray-300 hover:text-white opacity-0 group-hover:opacity-100 focus:opacity-100';
+      button.setAttribute('aria-label', 'Copy code');
+
+      // 5. 定义图标
+      const copyIcon = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+      `;
+
+      const checkIcon = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      `;
+
+      button.innerHTML = copyIcon;
+
+      // 6. 绑定点击事件
+      button.addEventListener('click', async () => {
+        // 智能提取逻辑：优先获取 code 标签文本，如果没有则获取 pre 文本
+        // 这里的 clone 是为了防止操作 DOM 影响显示（虽然 innerText 通常安全）
+        let textToCopy = '';
+        const codeElement = pre.querySelector('code');
+        
+        if (codeElement) {
+            textToCopy = codeElement.innerText;
+        } else {
+            textToCopy = pre.innerText;
+        }
+
+        try {
+          await navigator.clipboard.writeText(textToCopy);
+          
+          // 成功反馈
+          button.innerHTML = checkIcon;
+          
+          setTimeout(() => {
+            button.innerHTML = copyIcon;
+          }, 2000);
+        } catch (err) {
+          console.error('Copy failed:', err);
+          button.innerHTML = '❌';
+        }
+      });
+
+      wrapper.appendChild(button);
+    });
+  };
+
+  // 确保在视图切换和加载时都触发
+  document.addEventListener('astro:page-load', attachCopyButtons);
+  document.addEventListener('DOMContentLoaded', attachCopyButtons);
+</script>
+
+<style is:global>
+  /* 修复部分主题下 pre 的 margin 导致按钮位置偏移的问题 */
+  .code-wrapper pre {
+    margin-bottom: 0 !important; /* 让 wrapper 控制间距 */
+    height: 100%;
+  }
+</style>
