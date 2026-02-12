@@ -1,21 +1,78 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import slangData from '../data/slang.json';
 
-const metadata = { title: '社交百科 - 极酷家' };
+const metadata = {
+  title: '社交百科 - 极酷家',
+};
+
+// 模拟词条数据
+const slangItems = [
+  {
+    title: '什么是 "cqy" / "cgx"?',
+    description: 'cqy = 处Q友（交朋友）；cgx = 处关系（通常指找哥哥/妹妹等虚拟亲属关系）。这是 00 后扩列的基础黑话。',
+  },
+  {
+    title: '什么是 "跑单" (设圈/绘圈)?',
+    description: '指买家在画师已经开始绘制或甚至出图后，拒绝支付尾款并失联的行为。跑单者通常会被挂上“避雷墙”。',
+  },
+  {
+    title: '什么是 "共养" (OC)?',
+    description:
+      '指两个人或多人共同拥有一个原创角色 (Original Character)，共同为该角色约稿、写文。如果关系破裂，共养角色的归属权往往引发撕逼。',
+  },
+  {
+    title: '什么是 "皮下气人" (语C)?',
+    description: '语C术语。指扮演角色的皮（角色设定）很还原，但扮演者本人（皮下）的性格素质极差。',
+  },
+  {
+    title: '什么是 "弧长" / "弧"?',
+    description: '指回消息的速度。“弧了一周”意味着失踪了一周才回复。来源于反射弧长的梗。',
+  },
+  {
+    title: '什么是 "赛博分身" (2026新词)?',
+    description: '指使用 AI 工具（如 ChatGPT + 语音合成）代替真人进行水群或简单社交的行为。',
+  },
+];
 ---
 
 <Layout metadata={metadata}>
-  <section class="px-4 py-16 mx-auto max-w-7xl">
-    <h1 class="text-4xl font-bold text-center mb-12">QQ 社交词典</h1>
-    <div class="grid gap-6 md:grid-cols-2">
-      {slangData.map((item) => (
-        <div class="p-6 border rounded-lg shadow-sm hover:shadow-md transition">
-          <h2 class="text-xl font-bold text-blue-600">{item.word}</h2>
-          <p class="text-gray-700 font-medium">{item.mean}</p>
-          <p class="text-sm text-gray-500 mt-2">{item.detail}</p>
-        </div>
-      ))}
+  <section class="px-4 py-16 sm:px-6 mx-auto lg:px-8 lg:py-20 max-w-4xl">
+    <div class="mb-10 md:mx-auto text-center md:mb-12 max-w-3xl">
+      <h2 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter mb-4 font-heading">
+        社交黑话 <span class="text-accent">大词典</span>
+      </h2>
+      <p class="max-w-3xl mx-auto sm:text-center text-xl text-muted dark:text-slate-400">
+        收录 2026 年最新扩列、设圈、绘圈及语C圈层术语。拒绝做局外人。
+      </p>
+    </div>
+
+    <!-- 搜索框占位（后续可开发功能） -->
+    <div class="max-w-md mx-auto mb-12">
+      <div class="relative">
+        <input
+          type="text"
+          placeholder="搜索黑话 (例如: nss)"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg dark:bg-slate-900 dark:border-slate-700 focus:ring-2 focus:ring-primary"
+          disabled
+        />
+        <span class="absolute right-3 top-3 text-gray-400 text-sm">暂未开放搜索</span>
+      </div>
+    </div>
+
+    <!-- 词条列表 -->
+    <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
+      {
+        slangItems.map((item) => (
+          <div class="p-6 bg-white dark:bg-slate-900 rounded-lg shadow-md border border-gray-200 dark:border-slate-800 hover:shadow-lg transition duration-200">
+            <h3 class="text-xl font-bold text-primary mb-2">{item.title}</h3>
+            <p class="text-gray-600 dark:text-slate-400">{item.description}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-8 text-center">
+      <a href="/category/社交百科" class="btn btn-secondary">查看更多深度科普文章 &raquo;</a>
     </div>
   </section>
 </Layout>

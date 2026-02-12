@@ -2,22 +2,47 @@
 import Layout from '~/layouts/Layout.astro';
 import { getHomePermalink } from '~/utils/permalinks';
 
-const title = `Error 404`;
+const title = `404 - 页面已失联`;
 ---
 
 <Layout metadata={{ title }}>
   <section class="flex items-center h-full p-16">
     <div class="container flex flex-col items-center justify-center px-5 mx-auto my-8">
       <div class="max-w-md text-center">
+        <!-- 视觉冲击：巨大的 404 -->
         <h2 class="mb-8 font-bold text-9xl">
           <span class="sr-only">Error</span>
-          <span class="text-primary">404</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
+            404
+          </span>
         </h2>
-        <p class="text-3xl font-semibold md:text-3xl">Sorry, we couldn't find this page.</p>
-        <p class="mt-4 mb-8 text-lg text-muted dark:text-slate-400">
-          But dont worry, you can find plenty of other things on our homepage.
+
+        <!-- 玩梗标题 -->
+        <p class="text-3xl font-semibold md:text-3xl mb-4">
+          糟糕，页面好像被“撤回”了？
         </p>
-        <a rel="noopener noreferrer" href={getHomePermalink()} class="btn ml-4">Back to homepage</a>
+        
+        <!-- 引导文案 -->
+        <p class="mt-4 mb-8 text-lg text-gray-600 dark:text-slate-400">
+          你访问的这个页面可能因为 <span class="font-bold text-red-500">违规</span> 被封禁，<br class="hidden md:inline" />
+          或者它根本就不存在（像某些人的女朋友一样）。
+        </p>
+
+        <!-- 双按钮引导：不让用户流失 -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a rel="noopener noreferrer" href={getHomePermalink()} class="btn btn-primary">
+            🚀 返回首页
+          </a>
+          
+          <a rel="noopener noreferrer" href="/blacklist" class="btn btn-ghost border-gray-200 dark:border-gray-700">
+            🛡️ 查询黑名单
+          </a>
+        </div>
+
+        <!-- 底部装饰小字 -->
+        <p class="mt-12 text-sm text-gray-400">
+          Error Code: NETWORK_CONNECT_LOST_2026
+        </p>
       </div>
     </div>
   </section>

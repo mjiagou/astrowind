@@ -1,0 +1,37 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: '免责声明 & 服务条款',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="px-4 py-16 mx-auto max-w-4xl text-gray-800 dark:text-gray-200">
+    <h1 class="text-4xl font-bold mb-8 text-center">免责声明 & 用户协议</h1>
+    
+    <div class="prose dark:prose-invert max-w-none">
+      <h3>1. 关于软件修改风险</h3>
+      <p>
+        极酷家 (JiKuJia.com) 提供的所有 LiteLoaderQQNT 相关教程、插件及代码仅供技术交流与学习使用。
+        <strong>修改官方客户端属于违反腾讯 QQ 服务协议的行为。</strong>
+        您因使用本站教程而导致的账号封禁、功能异常或数据丢失，本站不承担任何责任。请使用小号测试，并自行承担风险。
+      </p>
+
+      <h3>2. 关于黑名单数据</h3>
+      <p>
+        本站“黑名单查询”系统中的数据均由社区用户（网友）自发投递。极酷家仅作为信息展示平台，不对数据的绝对真实性负责。
+        如果您发现有恶意挂人或不实信息，请联系管理员（admin@jikujia.com）提供证据，我们将在核实后 24 小时内删除。
+      </p>
+
+      <h3>3. 知识产权</h3>
+      <p>
+        本站原创文章采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> 协议。转载请注明出处，严禁用于商业用途。
+      </p>
+
+      <p class="mt-8 text-sm text-gray-500">
+        最后更新日期：2026年1月20日
+      </p>
+    </div>
+  </section>
+</Layout>

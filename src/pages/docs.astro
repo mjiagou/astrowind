@@ -1,0 +1,64 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Steps from '~/components/widgets/Steps.astro';
+
+const metadata = {
+  title: '玩机实验室 - 极酷家',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- 头部：极客风格 -->
+  <Hero
+    tagline="Docs & Labs"
+    title="玩机实验室"
+    subtitle="这里是极酷家的核心区域。探索 QQ NT 架构的极限，从美化到功能增强，打破官方限制。"
+    actions={[{ variant: 'primary', text: '查看最新教程', href: '/category/玩机实验室' }]}
+    image={{ src: '~/assets/images/hero-image.png', alt: 'Docs Hero' }}
+  />
+
+  <!-- 分类导航：两大板块 -->
+  <Features2
+    title="探索领域"
+    subtitle="选择你感兴趣的技术方向"
+    columns={2}
+    items={[
+      {
+        title: 'LiteLoader 生态',
+        description: 'QQ NT 架构下的插件加载器。学习如何安装、开发插件，以及如何修改 CSS 实现全透明磨砂皮肤。',
+        icon: 'tabler:package',
+        callToAction: { text: '进入专区', href: '/tag/liteloader' },
+      },
+      {
+        title: 'Bot 开发 (机器人)',
+        description: '基于 Python 或 Node.js。教你搭建群管机器人、点歌姬，对接 DeepSeek/ChatGPT 大模型。',
+        icon: 'tabler:robot',
+        callToAction: { text: '进入专区', href: '/tag/机器人' },
+      },
+    ]}
+  />
+
+  <!-- 路线图：新手怎么玩 -->
+  <Steps
+    title="新手晋级路线"
+    items={[
+      {
+        title: 'Lv.1 脚本小子',
+        description: '学会下载 LiteLoader 并安装现成的插件（防撤回、以图搜图）。',
+        icon: 'tabler:number-1',
+      },
+      {
+        title: 'Lv.2 美化大师',
+        description: '学会修改 CSS，自定义 QQ 的字体、背景图和气泡样式。',
+        icon: 'tabler:number-2',
+      },
+      {
+        title: 'Lv.3 开发者',
+        description: '编写自己的第一个 JavaScript 插件，并发布到社区。',
+        icon: 'tabler:number-3',
+      },
+    ]}
+  />
+</Layout>
